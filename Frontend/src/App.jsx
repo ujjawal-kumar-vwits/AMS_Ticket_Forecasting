@@ -1,24 +1,26 @@
+import { lazy, Suspense } from "react";
 import Layout from "./features/predictions/Components/Layout/Layout";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router";
 
-import PredictionDashboard from "./features/predictions/Pages/PredictionDashboard";
+const PredictionDashboard = lazy(() => import("./features/predictions/Pages/PredictionDashboard"));
 
-import CallCodeBifurcation from "./features/Call_code_page/pages/CallCodeBifurcation";
+const CallCodeBifurcation = lazy(() => import("./features/Call_code_page/pages/CallCodeBifurcation"));
 
-import ServiceDashboard from "./features/service_request/Pages/ServiceDashboard";
+const ServiceDashboard = lazy(() => import("./features/service_request/Pages/ServiceDashboard"));
 
-import IncidentDashboard from "./features/incident_request/pages/IncidentDashboard";
+const IncidentDashboard = lazy(() => import("./features/incident_request/pages/IncidentDashboard"));
 
-import FTE_Analysis from "./features/FTE_Analysis/Pages/FTE_Analysis";
+const FTE_Analysis = lazy(() => import("./features/FTE_Analysis/Pages/FTE_Analysis"));
 
-import EngineersDashboard from "./features/Engineers/Pages/EngineersDashboard";
+const EngineersDashboard = lazy(() => import("./features/Engineers/Pages/EngineersDashboard"));
 
-import AddExcel from "./features/predictions/Pages/AddExcel";
+const AddExcel = lazy(() => import("./features/predictions/Pages/AddExcel"));
 
 function App() {
   return (
     <Layout>
-      <Routes>
+      <Suspense fallback={<div role="status">Loading dashboard...</div>}>
+        <Routes>
 
         <Route
           path="/"
@@ -61,7 +63,8 @@ function App() {
           element={<AddExcel />}
         />
 
-      </Routes>
+        </Routes>
+      </Suspense>
     </Layout>
   );
 }
